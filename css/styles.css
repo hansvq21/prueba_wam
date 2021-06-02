@@ -88,9 +88,74 @@ header .secondary-tittle {
     padding: 0 50px 50px 50px;
 }
 
+.grid-container .information{
+    text-align: center;
+}
+
 .grid-container .form {
     background-color: #e6e6e6;
     padding: 50px 50px 50px 50px; 
     border-radius: 20px;
     text-align: left;
+}
+
+.form label{
+    font-weight: bold;
+}
+
+.form input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form .addRow{
+    width: 25%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 8px 0;
+    padding: 10px 10px;
+    font-size: medium;
+}
+.form .addRow:hover {
+    background-color: #419944;
+}
+
+.form .removeRow{
+    width: 25%;
+    background-color: #da3f3f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 8px 0;
+    padding: 10px 10px;
+    font-size: medium;
+}
+
+.form .removeRow:hover {
+    background-color: #bb3636;
+}
+  
+.form input[type=submit] {
+    width: 100%;
+    background-color: #7a7a7a;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: larger;
+  }
+  
+.form input[type=submit]:hover {
+    background-color: #6e6e6e;
 }

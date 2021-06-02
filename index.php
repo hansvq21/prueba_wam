@@ -14,7 +14,6 @@
         <?php
             
             if(isset($_POST['activate'])){
-                echo 'estoy aqui';
                 include 'config/connection.php';
 
                 $identificator = $_POST['identification'];
@@ -56,11 +55,16 @@
                 for ($x=0;$x<count($cupons); $x++){
                     $sql_cupon = "INSERT INTO cupon (cupon_name, id_customer) 
                     VALUES ('$cupons[$x]', '$identificator');";
-                    if ($con->query($sql_cupon) === TRUE) {
-                        $isAdded = true;
+                    if(validateCupon($con, $cupons[$x])){
+                        if ($con->query($sql_cupon) === TRUE) {
+                            $isAdded = true;
+                        } else {
+                            $isAdded = false;
+                            echo '<script>alert("Error al agregar la información a la base de datos")</script>';
+                            break;
+                        }
                     } else {
-                        echo '<script>alert("Error al agregar la información a la base de datos")</script>';
-                        break;
+                        echo '<script>alert("El cupón '.$cupons[$x].' no es válido")</script>';
                     }
                 }
 
@@ -68,18 +72,13 @@
                     echo '<script>alert("Cupones agregados con éxito")</script>';
                 }
 
-                
-
-                
-
-                echo count($cupons);
-
                 $con->close();
 
             }
 
         ?>
     </div>
+
     <div class="main">
         <div class="container">
             <div class="navbar">
@@ -100,29 +99,32 @@
         </header>
 
         <div class="grid-container">
-            <div class="information">1</div>
-            <div class="form">
-                <h1 class="activation-text">Activation form</h1>
-                <h2 class="secondary-activation-text">A short explanation</h2>
+            <div class="information">
+                <img src="img/perrito.jpg" class="img-information" alt="Main logo">
+            </div>
+            
+            <div class="form">  
+                <h1 class="activation-text">Activation form</h1><br/>
+                <p class="secondary-activation-text">A short explanation</p><br/>
 
                 <form method="post">
                     <label class="label-form">Identification number:</label> <br/>
-                    <input type="number" id="identification" name="identification" placeholder="X-XXXX-XXXX" required> <br/>
+                    <input type="number" id="identification" name="identification" placeholder="X-XXXX-XXXX" required maxlength="9"> <br/>
 
                     <label class="label-form">Your name:</label> <br/>
                     <input type="text" id="name" name="name" placeholder="First and last name" required> <br/>
 
                     <label class="label-form">Telephone number:</label> <br/>
-                    <input type="number" id="telephone" name="telephone" placeholder="First and last name" required> <br/>
+                    <input type="number" id="telephone" name="telephone" placeholder="####-####" required maxlength="8"> <br/>
                 
                     <label class="label-form">Email address:</label> <br/>
                     <input type="email" id="email" name="email" placeholder="example@email.com" required> <br/>
 
                     <label class="label-form">Cupons:</label> <br/>
-                    <input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required> 
+                    <input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required maxlength="6"> 
                     
                     <div id="newRow"></div>
-                    <button id="addRow" type="button" class="btn btn-info">Add Row</button><br/>
+                    <button id="addRow" type="button" class="addRow">Add Cupon</button><br/>
 
                     <input type="submit" name="activate" value="Activate">
                 </form>
@@ -135,8 +137,8 @@
         $("#addRow").click(function () {
             var html = '';
             html += '<div id="inputFormRow">';
-            html += '<input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required>';
-            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button><br/>';
+            html += '<input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required maxlength="6">';
+            html += '<button id="removeRow" type="button" class="removeRow">Remove Cupon</button><br/>';
             html += '</div>';
 
             $('#newRow').append(html);

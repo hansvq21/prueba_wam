@@ -1,27 +1,34 @@
 <?php
-$host="163.178.107.10";
-$port=3306;
-$socket="";
-$user="laboratorios";
-$password="KmZpo.2796";
-$dbname="b67781_wa_2021";
+    $host="163.178.107.10";
+    $port=3306;
+    $socket="";
+    $user="laboratorios";
+    $password="KmZpo.2796";
+    $dbname="b67781_wa_2021";
 
-$con = new mysqli($host, $user, $password, $dbname, $port, $socket)
-	or die ('Could not connect to the database server' . mysqli_connect_error());
+    $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+        or die ('Could not connect to the database server' . mysqli_connect_error());
 
-//$con->close();
-
-
-$query = "SELECT * FROM b67781_wa_2021.customer";
+    //$con->close();
 
 
-if ($stmt = $con->prepare($query)) {
-    $stmt->execute();
-    $stmt->bind_result($field1, $field2, $field3, $field4);
-    while ($stmt->fetch()) {
-        printf("%s, %s\n", $field1, $field2, $field3, $field4);
+    
+
+    function validateCupon ($con, $newCupon){
+        $cupons = "SELECT cupon_name FROM b67781_wa_2021.cupon";
+        if ($stmt = $con->prepare($cupons)) {
+            $stmt->execute();
+            $stmt->bind_result($cuponNameBD);
+            while ($stmt->fetch()) {
+                if($cuponNameBD == $newCupon){
+                    return false;
+                }
+            }
+            $stmt->close();
+
+            return true;
+        }
     }
-    $stmt->close();
-}
+    
 
 ?>
