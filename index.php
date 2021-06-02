@@ -13,9 +13,12 @@
     <div>
         <?php
             
+            //verificar que se de clicl en el botón para enviar el formulario
             if(isset($_POST['activate'])){
+                //importar el archivo de concexión con la bd
                 include 'config/connection.php';
 
+                //Variables del formulario
                 $identificator = $_POST['identification'];
                 $name = $_POST['name'];
                 $telephone = $_POST['telephone'];
@@ -23,16 +26,19 @@
                 $cupons = $_POST['cupon'];
                 $isCustomer = false;
 
+                //Verificar algún error en la conexión
                 if ($con->connect_error) {
                     die("Connection failed: " . $con->connect_error);
                 }
 
                 $query = "SELECT * FROM b67781_wa_2021.customer";
 
+                //Recorrer la lista de clientes para verificar si ya están en la BD o no
                 if ($stmt = $con->prepare($query)) {
                     $stmt->execute();
                     $stmt->bind_result($identificator_bd, $name_bd, $telephone_bd, $email_bd);
                     while ($stmt->fetch()) {
+                        //Revisar si el cliente existe
                         if($identificator == $identificator_bd){
                             $isCustomer = true;
                         }
@@ -40,10 +46,12 @@
                     $stmt->close();
                 }
 
+                //En caso de que la persona aún no esté en la BD, se agrega
                 if(!$isCustomer){
                     $sql_customer = "INSERT INTO customer (id_customer, name, telephone, email) 
                     VALUES ('$identificator', '$name', '$telephone', '$email');";
 
+                    //Revisar cualquier error que pueda ocurrir
                     if ($con->query($sql_customer) === TRUE) {
                     } else {
                         echo "Error: " . $sql_customer . "<br>" . $con->error;
@@ -51,6 +59,8 @@
                 }
 
 
+                //Se recorre la lista de cupones y se va agregando uno a uno a la BD
+                //En caso de que haya un cupón repetido, este no se agrega y se envía un mensaje de error
                 $isAdded = false;
                 for ($x=0;$x<count($cupons); $x++){
                     $sql_cupon = "INSERT INTO cupon (cupon_name, id_customer) 
@@ -72,6 +82,7 @@
                     echo '<script>alert("Cupones agregados con éxito")</script>';
                 }
 
+                //Cierre de conexión con la BD
                 $con->close();
 
             }
@@ -115,7 +126,7 @@
                     <input type="text" id="name" name="name" placeholder="First and last name" required> <br/>
 
                     <label class="label-form">Telephone number:</label> <br/>
-                    <input type="number" id="telephone" name="telephone" placeholder="####-####" required maxlength="8"> <br/>
+                    <input type="number" id="telephone" name="telephone" placeholder="####-####" required min="1" maxlength="8"> <br/>
                 
                     <label class="label-form">Email address:</label> <br/>
                     <input type="email" id="email" name="email" placeholder="example@email.com" required> <br/>
@@ -133,7 +144,8 @@
     </div>
 
     <script type="text/javascript">
-        // add row
+        // Añadir nuevo campo de texto para el cupón
+        // Se añade también un botón de borrar para eliminar el campo de texto
         $("#addRow").click(function () {
             var html = '';
             html += '<div id="inputFormRow">';
@@ -144,7 +156,7 @@
             $('#newRow').append(html);
         });
 
-        // remove row
+        // rFuncionamiento del botón de borrado del campo de texto
         $(document).on('click', '#removeRow', function () {
             $(this).closest('#inputFormRow').remove();
         });
