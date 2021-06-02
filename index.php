@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-
-
-
 <body>
     <div>
         <?php
@@ -22,7 +21,7 @@
                 $name = $_POST['name'];
                 $telephone = $_POST['telephone'];
                 $email = $_POST['email'];
-                $cupon = $_POST['cupon'];
+                $cupons = $_POST['cupon'];
                 $isCustomer = false;
 
                 if ($con->connect_error) {
@@ -52,14 +51,28 @@
                     }
                 }
 
-                $sql_cupon = "INSERT INTO cupon (cupon_name, id_customer) 
-                VALUES ('$cupon', '$identificator');";
 
-                if ($con->query($sql_cupon) === TRUE) {
-                    echo '<script>alert("Cupon activated successfully")</script>';
-                } else {
-                    echo "Error: " . $sql_cupon . "<br>" . $con->error;
+                $isAdded = false;
+                for ($x=0;$x<count($cupons); $x++){
+                    $sql_cupon = "INSERT INTO cupon (cupon_name, id_customer) 
+                    VALUES ('$cupons[$x]', '$identificator');";
+                    if ($con->query($sql_cupon) === TRUE) {
+                        $isAdded = true;
+                    } else {
+                        echo '<script>alert("Error al agregar la información a la base de datos")</script>';
+                        break;
+                    }
                 }
+
+                if($isAdded){
+                    echo '<script>alert("Cupones agregados con éxito")</script>';
+                }
+
+                
+
+                
+
+                echo count($cupons);
 
                 $con->close();
 
@@ -106,13 +119,34 @@
                     <input type="email" id="email" name="email" placeholder="example@email.com" required> <br/>
 
                     <label class="label-form">Cupons:</label> <br/>
-                    <input type="text" id="cupon" name="cupon" placeholder="abc123" required> <br/>
+                    <input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required> 
+                    
+                    <div id="newRow"></div>
+                    <button id="addRow" type="button" class="btn btn-info">Add Row</button><br/>
 
                     <input type="submit" name="activate" value="Activate">
                 </form>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        // add row
+        $("#addRow").click(function () {
+            var html = '';
+            html += '<div id="inputFormRow">';
+            html += '<input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required>';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button><br/>';
+            html += '</div>';
+
+            $('#newRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#inputFormRow').remove();
+        });
+    </script>
 </body>
 
 </html>
