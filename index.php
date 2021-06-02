@@ -23,7 +23,7 @@
                 $name = $_POST['name'];
                 $telephone = $_POST['telephone'];
                 $email = $_POST['email'];
-                $cupons = $_POST['cupon'];
+                $coupons = $_POST['coupon'];
                 $isCustomer = false;
 
                 //Verificar algún error en la conexión
@@ -59,14 +59,14 @@
                 }
 
 
-                //Se recorre la lista de cupones y se va agregando uno a uno a la BD
+                //Se recorre la lista de coupones y se va agregando uno a uno a la BD
                 //En caso de que haya un cupón repetido, este no se agrega y se envía un mensaje de error
                 $isAdded = false;
-                for ($x=0;$x<count($cupons); $x++){
-                    $sql_cupon = "INSERT INTO cupon (cupon_name, id_customer) 
-                    VALUES ('$cupons[$x]', '$identificator');";
-                    if(validateCupon($con, $cupons[$x])){
-                        if ($con->query($sql_cupon) === TRUE) {
+                for ($x=0;$x<count($coupons); $x++){
+                    $sql_coupon = "INSERT INTO coupon (coupon_name, id_customer) 
+                    VALUES ('$coupons[$x]', '$identificator');";
+                    if(validatecoupon($con, $coupons[$x])){
+                        if ($con->query($sql_coupon) === TRUE) {
                             $isAdded = true;
                         } else {
                             $isAdded = false;
@@ -74,12 +74,12 @@
                             break;
                         }
                     } else {
-                        echo '<script>alert("El cupón '.$cupons[$x].' no es válido")</script>';
+                        echo '<script>alert("El cupón '.$coupons[$x].' no es válido")</script>';
                     }
                 }
 
                 if($isAdded){
-                    echo '<script>alert("Cupones agregados con éxito")</script>';
+                    echo '<script>alert("coupones agregados con éxito")</script>';
                 }
 
                 //Cierre de conexión con la BD
@@ -93,7 +93,7 @@
     <div class="main">
         <div class="container">
             <div class="navbar">
-                <img src="img/navbar-img.png" class="logo" alt="Main logo">
+                <img src="img/coupon-navbar.png" class="logo" alt="Main logo">
 
                 <ul>
                     <li><a href="#">Contact</a></li>
@@ -111,8 +111,31 @@
 
         <div class="grid-container">
             <div class="information">
-                <img src="img/perrito.jpg" class="img-information" alt="Main logo">
+                <div>
+                <img src="img/logo.png" class="img-information" alt="Main logo">
+                <p>texto de prueba
+                    textyo de prueba x2</p>
+                </div>
+
+                <div class="grid-container-info">
+                    <div><h1>1</h1></div>
+                    <div>
+                        <h2>Step 1</h2>
+                    </div>
+
+                    <div><h1>2</h1></div>
+                    <div>
+                        <h2>Step 2</h2>
+                    </div>
+
+                    <div><h1>3</h1></div>
+                    <div>
+                        <h2>Step 3</h2>
+                    </div>
+                </div>
             </div>
+
+            
             
             <div class="form">  
                 <h1 class="activation-text">Activation form</h1><br/>
@@ -131,13 +154,13 @@
                     <label class="label-form">Email address:</label> <br/>
                     <input type="email" id="email" name="email" placeholder="example@email.com" required> <br/>
 
-                    <label class="label-form">Cupons:</label> <br/>
-                    <input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required maxlength="6"> 
+                    <label class="label-form">coupons:</label> <br/>
+                    <input type="text" id="coupon" name="coupon[]" placeholder="abc123" autocomplete="off" required maxlength="6"> 
                     
                     <div id="newRow"></div>
-                    <button id="addRow" type="button" class="addRow">Add Cupon</button><br/>
+                    <button id="addRow" type="button" class="addRow">Add coupon</button><br/>
 
-                    <input type="submit" name="activate" value="Activate">
+                    <input type="submit" name="activate" value="Activate" href="index.php">
                 </form>
             </div>
         </div>
@@ -149,8 +172,8 @@
         $("#addRow").click(function () {
             var html = '';
             html += '<div id="inputFormRow">';
-            html += '<input type="text" id="cupon" name="cupon[]" placeholder="abc123" autocomplete="off" required maxlength="6">';
-            html += '<button id="removeRow" type="button" class="removeRow">Remove Cupon</button><br/>';
+            html += '<input type="text" id="coupon" name="coupon[]" placeholder="abc123" autocomplete="off" required maxlength="6">';
+            html += '<button id="removeRow" type="button" class="removeRow">Remove coupon</button><br/>';
             html += '</div>';
 
             $('#newRow').append(html);

@@ -16,15 +16,15 @@
 
     
     //Función para validar si un cupón ya fue activado o no
-    function validateCupon ($con, $newCupon){
-        $cupons = "SELECT cupon_name FROM b67781_wa_2021.cupon";
-        //Se recorre la lista de cupones dados de la consulta en la BD
-        if ($stmt = $con->prepare($cupons)) {
+    function validatecoupon ($con, $newcoupon){
+        $coupons = "SELECT coupon_name FROM b67781_wa_2021.coupon";
+        //Se recorre la lista de coupones dados de la consulta en la BD
+        if ($stmt = $con->prepare($coupons)) {
             $stmt->execute();
-            $stmt->bind_result($cuponNameBD);
+            $stmt->bind_result($couponNameBD);
             while ($stmt->fetch()) {
                 //Se verifica si existe alguno igual en la BD
-                if($cuponNameBD == $newCupon){
+                if($couponNameBD == $newcoupon){
                     return false;
                 }
             }

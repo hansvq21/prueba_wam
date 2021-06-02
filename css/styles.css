@@ -21,7 +21,7 @@ body {
 a {
 	text-decoration: none;
     color: rgb(0, 0, 0);
-    font-size: 1.2rem;
+    font-size: 1.6rem;
 }
 
 .container {
@@ -42,13 +42,13 @@ a {
 }
 
 .logo {
-    width: 30px;
+    width: 70px;
     cursor: pointer;
-    padding: 0 0 0 20px;
+    padding: 0 0 0 50px;
 }
 
 .navbar ul {
-    padding: 0 20px 0 0;
+    padding: 0 50px 0 0;
 }
 
 .navbar ul li {
@@ -88,8 +88,33 @@ header .secondary-tittle {
     padding: 0 50px 50px 50px;
 }
 
+.grid-container-info{
+    display: grid;
+    grid-template-columns: 20% auto;
+    grid-gap: 50px;
+    padding: 50px 50px 50px 50px;
+}
+
+.grid-container-info h1{
+    text-align: center;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    background: lightblue;
+    
+}
+
+.grid-container-info h2{
+    text-align: left;
+    background: coral;
+}
+
 .grid-container .information{
     text-align: center;
+}
+
+.grid-container .information img{
+    width: 800px;
 }
 
 .grid-container .form {
