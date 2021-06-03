@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Coupons Activator</title>
     <link rel="stylesheet" href="css/styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -31,7 +31,7 @@
                     die("Connection failed: " . $con->connect_error);
                 }
 
-                $query = "SELECT * FROM b67781_wa_2021.customer";
+                $query = "SELECT * FROM prueba_wam_hans.customer";
 
                 //Recorrer la lista de clientes para verificar si ya están en la BD o no
                 if ($stmt = $con->prepare($query)) {

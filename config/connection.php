@@ -1,14 +1,12 @@
 <?php
 
     //Conexión con el servidor de la BD
-    $host="163.178.107.10";
-    $port=3306;
-    $socket="";
-    $user="laboratorios";
-    $password="KmZpo.2796";
-    $dbname="b67781_wa_2021";
+    $host="127.0.0.1";
+    $user="root";
+    $password="";
+    $dbname="prueba_wam_hans";
 
-    $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+    $con = new mysqli($host, $user, $password, $dbname)
         or die ('Could not connect to the database server' . mysqli_connect_error());
 
     //$con->close();
@@ -17,7 +15,8 @@
     
     //Función para validar si un cupón ya fue activado o no
     function validatecoupon ($con, $newcoupon){
-        $coupons = "SELECT coupon_name FROM b67781_wa_2021.coupon";
+        $coupons = "SELECT coupon_name FROM prueba_wam_hans.coupon";
+        $couponNameBD = "";
         //Se recorre la lista de coupones dados de la consulta en la BD
         if ($stmt = $con->prepare($coupons)) {
             $stmt->execute();
@@ -36,7 +35,8 @@
 
     //Función para validar si un cupón ya fue activado o no
     function validateAllCoupons ($con, $newcoupon){
-        $coupons = "SELECT coupon_name FROM b67781_wa_2021.coupon";
+        $coupons = "SELECT coupon_name FROM prueba_wam_hans.coupon";
+        $couponNameBD = "";
         //Se recorre la lista de coupones dados de la consulta en la BD
         if ($stmt = $con->prepare($coupons)) {
             $stmt->execute();
