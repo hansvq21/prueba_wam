@@ -70,16 +70,16 @@
                             $isAdded = true;
                         } else {
                             $isAdded = false;
-                            echo '<script>alert("Error al agregar la información a la base de datos")</script>';
+                            echo '<script>alert("Error adding the information to the database")</script>';
                             break;
                         }
                     } else {
-                        echo '<script>alert("El cupón '.$coupons[$x].' no es válido")</script>';
+                        echo '<script>alert("The coupon '.$coupons[$x].' is not valid")</script>';
                     }
                 }
 
                 if($isAdded){
-                    echo '<script>alert("coupones agregados con éxito")</script>';
+                    echo '<script>alert("Coupons added successfully")</script>';
                 }
 
                 //Cierre de conexión con la BD
