@@ -20,7 +20,7 @@ body {
 
 a {
 	text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: #2b2a2a;
     font-size: 1.6rem;
 }
 
@@ -69,7 +69,7 @@ header {
 }
 
 header .tittle {
-	color: #050505;
+	color: #2b2a2a;
 	font-size: 40px;
 	margin-bottom: 10px;
 }
@@ -88,25 +88,25 @@ header .secondary-tittle {
     padding: 0 50px 50px 50px;
 }
 
+/* ----- GRID-CONTAINER INFORMATION----- */
+
 .grid-container-info{
     display: grid;
-    grid-template-columns: 20% auto;
+    grid-template-columns: 20% 80%;
     grid-gap: 50px;
     padding: 50px 50px 50px 50px;
+    text-align: left;
 }
 
 .grid-container-info h1{
-    text-align: center;
-    border-radius: 50%;
-    width: 75px;
-    height: 75px;
-    background: lightblue;
-    
+    text-align: right;
+    color: #2b2a2a;
 }
 
 .grid-container-info h2{
     text-align: left;
-    background: coral;
+    color: #5f5f5f;
+    padding-right: 40px;
 }
 
 .grid-container .information{
@@ -117,6 +117,16 @@ header .secondary-tittle {
     width: 800px;
 }
 
+.grid-container .information p{
+    color: #5f5f5f;
+    padding-top: 20px;
+    font-size: 1.5rem;
+    padding: 0 50px 0 50px;
+    text-align: left;
+}
+
+/* ----- GRID-CONTAINER FORM -----*/
+
 .grid-container .form {
     background-color: #e6e6e6;
     padding: 50px 50px 50px 50px; 
@@ -124,8 +134,18 @@ header .secondary-tittle {
     text-align: left;
 }
 
+.grid-container .form h1{
+    color: #2b2a2a;
+}
+
+.grid-container .form p{
+    color: #5f5f5f;
+    font-size: larger;
+}
+
 .form label{
     font-weight: bold;
+    color: #2b2a2a;
 }
 
 .form input {
@@ -139,7 +159,7 @@ header .secondary-tittle {
 }
 
 .form .addRow{
-    width: 25%;
+    width: 30%;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -154,7 +174,7 @@ header .secondary-tittle {
 }
 
 .form .removeRow{
-    width: 25%;
+    width: 30%;
     background-color: #da3f3f;
     color: white;
     border: none;

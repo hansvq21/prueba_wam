@@ -12,7 +12,7 @@
 <body>
     <div>
         <?php
-            
+
             //verificar que se de clicl en el botón para enviar el formulario
             if(isset($_POST['activate'])){
                 //importar el archivo de concexión con la bd
@@ -104,8 +104,8 @@
 
         <header>
             <div class="container">
-                <h1 class="tittle">Header text</h1>
-                <h2 class="secondary-tittle">Secondary header text</h2>
+                <h1 class="tittle">Activate your coupons here</h1>
+                <h2 class="secondary-tittle">The most reliable site to activate your coupons </h2>
             </div>
         </header>
 
@@ -113,24 +113,27 @@
             <div class="information">
                 <div>
                 <img src="img/logo.png" class="img-information" alt="Main logo">
-                <p>texto de prueba
-                    textyo de prueba x2</p>
+                <p><strong>We offer the service for you to activate your coupons in a reliable and safe way, 
+                   where your data will be safe and you will be able to obtain the benefits of 
+                   each coupon without any problem</p></strong></br>
+                <p><strong>These are the steps so you can do it:</strong></p>
                 </div>
 
                 <div class="grid-container-info">
-                    <div><h1>1</h1></div>
+                    <div><h1>Step 1</h1></div>
                     <div>
-                        <h2>Step 1</h2>
+                        <h2>Enter your personal data in the form on the right side</h2>
                     </div>
 
-                    <div><h1>2</h1></div>
+                    <div><h1>Step 2</h1></div>
                     <div>
-                        <h2>Step 2</h2>
+                        <h2>Add the coupon code you want to activate in the coupon field 
+                            (you can activate up to 5 coupons at the same time)</h2>
                     </div>
 
-                    <div><h1>3</h1></div>
+                    <div><h1>Step 3</h1></div>
                     <div>
-                        <h2>Step 3</h2>
+                        <h2>Press the activate button at the bottom of the form to complete the process </h2>
                     </div>
                 </div>
             </div>
@@ -139,7 +142,10 @@
             
             <div class="form">  
                 <h1 class="activation-text">Activation form</h1><br/>
-                <p class="secondary-activation-text">A short explanation</p><br/>
+                <p class="secondary-activation-text">The following information is requested in order to offer 
+                    you a better service, more specialized and focused on your tastes and preferences. 
+                    In addition to having the possibility of acquiring more and better benefits by 
+                    activating the coupons on this website. </p><br/>
 
                 <form method="post">
                     <label class="label-form">Identification number:</label> <br/>
@@ -154,7 +160,7 @@
                     <label class="label-form">Email address:</label> <br/>
                     <input type="email" id="email" name="email" placeholder="example@email.com" required> <br/>
 
-                    <label class="label-form">coupons:</label> <br/>
+                    <label class="label-form">Coupons:</label> <br/>
                     <input type="text" id="coupon" name="coupon[]" placeholder="abc123" autocomplete="off" required maxlength="6"> 
                     
                     <div id="newRow"></div>
@@ -169,19 +175,33 @@
     <script type="text/javascript">
         // Añadir nuevo campo de texto para el cupón
         // Se añade también un botón de borrar para eliminar el campo de texto
+        var maxField = 5;
+        var x = 1;
         $("#addRow").click(function () {
+            
             var html = '';
             html += '<div id="inputFormRow">';
             html += '<input type="text" id="coupon" name="coupon[]" placeholder="abc123" autocomplete="off" required maxlength="6">';
             html += '<button id="removeRow" type="button" class="removeRow">Remove coupon</button><br/>';
             html += '</div>';
 
-            $('#newRow').append(html);
+            if(x < maxField){ 
+                x++; //Incrementar el contador de campos
+                $('#newRow').append(html);
+                if(x == maxField){
+                    $('#addRow').hide();
+                }
+            }
+             
+            
         });
 
         // rFuncionamiento del botón de borrado del campo de texto
         $(document).on('click', '#removeRow', function () {
+            x--;
+            $('#addRow').show();
             $(this).closest('#inputFormRow').remove();
+            $('#newRow').append(html);
         });
     </script>
 </body>
